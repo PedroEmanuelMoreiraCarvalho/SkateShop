@@ -1,0 +1,73 @@
+.categoria_background{
+    position: relative;
+    width: 100vw;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.categoria_background>img{
+    position: absolute;
+    object-fit:cover;
+    width: 100%;
+    height: 100%;
+}
+.categorias{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    
+}
+.menu_itens{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.menu_item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.categoria_itens{
+    display: none;
+    position: absolute;
+}
+.categoria_itens>a{
+    margin: 5px 5px;
+}
+
+.categoria_subitens{
+    display: none;
+    position: absolute;
+}
+
+.menu_item:hover>.categoria_itens{
+    z-index: 1;
+    background-image: url("https://th.bing.com/th/id/R.2f78153a36dee9fb78f4f976e1aff7fe?rik=DMYlZqczMZqe8A&riu=http%3a%2f%2fwww.myfreetextures.com%2fwp-content%2fuploads%2f2014%2f10%2fseamless-wood-planks-1-190x190.jpg&ehk=naaOu3AONY8WH08F1o2i1sCOZvJISBlWRZ5HT0tLvCY%3d&risl=&pid=ImgRaw&r=0");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+    width: 100%;
+    height: max-content;
+    background-color: #444;
+}
+
+.menu_categoria{
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 2px #444;
+    font-size: 18px;
+    margin: 0 20px;
+    transition: all ease-in-out 0.15s; 
+    cursor: pointer;
+}
+.menu_categoria:hover{
+    transform: scale(1.1);
+}
+.categorias div:not(:last-child):after {
+    font-size: 20px;
+    content: '|';
+    color:#111;
+    font-weight:bold;
+}
