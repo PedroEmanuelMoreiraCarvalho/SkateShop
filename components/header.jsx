@@ -1,12 +1,8 @@
 import styles from "../styles/Header.module.css"
 import Image from "next/image"
-import { useState } from "react"
-import Link from "next/link"
+import Form from "./form"
 
 export default function Header() {
-
-    const [busca,setBusca] = useState()
-    console.log(busca)
 
     return(
         <div className={styles.header_background}>
@@ -14,18 +10,7 @@ export default function Header() {
             <div className={styles.header}>
                 <div className={styles.header_search}>
                     <div className={styles.header_search_field}>
-                        <div className={styles.header_search_field_textfield}>
-                            <input type="text" onChange={e=> setBusca(e.target.value)}></input>
-                        </div>
-                        <div className={styles.header_search_field_button}>
-                            <Link href={`categorias/${busca}`}>
-                                <a>
-                                    <div className={styles.menu_categoria}>
-                                        <Image src="/search.svg" alt="search" width={15} height={15} />
-                                    </div>
-                                </a>
-                            </Link>
-                        </div>
+                        <Form/>
                     </div>
                 </div>
                 <div className={styles.header_logo}>

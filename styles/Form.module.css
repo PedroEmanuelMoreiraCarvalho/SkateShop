@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
+
+.header_search_form{
+    display: flex;
+}
+.header_search_field{
+    display: flex;
+    justify-content: space-around;
+}
+.search_button{
+    width: 50px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+.search_bar{
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 15px;
+    color: white;
+    margin: 0 5px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+}
+.search_bar::placeholder{
+    color: white;
+}

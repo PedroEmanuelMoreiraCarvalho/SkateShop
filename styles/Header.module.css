@@ -28,28 +28,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 250px;
+    width: max-content;
 }
 .header_search_field{
     display: flex;
-    justify-content: space-between;
+    padding: 0px;
+    justify-content: space-around;
     align-items: center;
     border: solid 1px #fff;
     height: 38px;
     width: 100%;
-}
-.header_search_field_textfield{
-    padding: 10px;
-    color: #fff;
-}
-.header_search_field_button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: none;
-    height: 100%;
-    width: 38px;
 }
 
 .header_logo{
@@ -116,8 +104,13 @@
         position: absolute;
         bottom: 10px;
     }
+    .header_search_field{
+        display: flex;
+        justify-content: center;
+    }
     .header_client{
+        height: fit-content;
         position: absolute;
-        top: 50px;
+        margin-top: 100px;
     }
 }

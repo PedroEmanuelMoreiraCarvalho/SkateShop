@@ -8,7 +8,7 @@ export default function Home() {
     <div className={styles.skateshop}>
       <Header/>
       <Categorias/>
-      <Produtos categoria={"storage"} subcategoria={undefined}/>
+      <Produtos categoria={"storage"} subcategoria={undefined} search={undefined}/>
     </div>
   )
 }

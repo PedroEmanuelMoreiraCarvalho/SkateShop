@@ -10,27 +10,27 @@ export default function Home() {
     const router = useRouter()
     const [categoria, setCategoria] = useState("")
     const [subcategoria, setSubCategoria] = useState("")
+    const [search, setSearch] = useState("")
 
     useEffect(()=>{
         const router_categoria = router.query.categoria
-        console.log(router_categoria)
         const router_subcategoria = router.query.subcategoria
+        const router_search = router.query.search
+        setSearch(router_search)
         setCategoria(router_categoria)
         setSubCategoria(router_subcategoria)
-        
     },[router?.query])
 
-    function produtos(produtos_categoria, produtos_subcategoria){
+    function produtos(produtos_categoria, produtos_subcategoria, produtos_search){
         if(categoria){
-            //console.log(`Categoria dos produtos: ${produtos_categoria}`)
-            return <Produtos categoria={produtos_categoria} subcategoria={produtos_subcategoria}/>
+            return <Produtos categoria={produtos_categoria} subcategoria={produtos_subcategoria} search={produtos_search}/>
         }
     }
     return (
         <div className={styles.skateshop}>
             <Header/>
             <Categorias/>
-            {produtos(categoria,subcategoria)}
+            {produtos(categoria,subcategoria,search)}
         </div>
     )
 }

@@ -1,12 +1,46 @@
 import styles from "../styles/Produtos.module.css"
-import api from "../pages/api/api"
 import { useCallback, useEffect, useState } from "react"
 import Produto from "./produto"
 
+function verificarSimilaridade(sentenca1,sentenca2){
+    sentenca1 = sentenca1.toLowerCase()
+    sentenca2 = sentenca2.toLowerCase()
+    var similarity = 0
+    var max_similarity = 0
+    var maiorpalavra = ""
+    var menorpalavra = ""
+    if(sentenca1.length>sentenca2.length){
+      maiorpalavra = sentenca1
+      menorpalavra = sentenca2
+    }else{
+      maiorpalavra = sentenca2
+      menorpalavra = sentenca1
+    }
+  
+    for(let i=0;i<menorpalavra.length;i++){
+        let char = menorpalavra[i]
+        for(let o=0;o<maiorpalavra.length;o++){
+            let second_char = maiorpalavra[o]
+            
+            if(char==second_char){
+                similarity++
+                if(i==o){
+                    similarity++
+                }
+                break
+            }
+            maiorpalavra = maiorpalavra.replace(maiorpalavra[o], " ")
+        }
+        max_similarity+=2
+    }
+    var percentage = Math.floor((similarity*100)/max_similarity)
+    return percentage
+}
 export default function Produtos(props){
     const [categoria_nome, setCategoriaNome] = useState("")
     const [produtos, setProdutos] = useState([])
     const [subprodutos, setSubProdutos] = useState([])
+    const [resultados, setResultados] = useState([])
 
     async function carregarProdutos(){
         const req = await fetch(`http://localhost:3000/api/${props.categoria}`);
@@ -20,20 +54,43 @@ export default function Produtos(props){
         const produtos_filtro = object.filter(function(ele){return ele.produto_tipo == props.categoria})
         const subprodutos = produtos_filtro.filter(function(ele){return ele.produto_categorias.includes(props.subcategoria)})
         setSubProdutos(subprodutos)
-        console.log(subprodutos)
+    }
+    async function carregarResultados(){
+        const filter_sim = 70
+        if(props.categoria){
+            const req = await fetch(`http://localhost:3000/api/${props.categoria}`);
+            const json = await req.json();
+            const object = json.reverse()
+            const produtos_filtro = object.filter(function(ele){return ele.produto_tipo == props.categoria})
+            const subprodutos = produtos_filtro.filter(function(ele){return ele.produto_categorias.includes(props.subcategoria)})
+            const results = subprodutos.filter(function(ele){return verificarSimilaridade(props.search,ele.produto_nome)>filter_sim}) 
+            setResultados(results)
+            console.log(results)
+        }
+        if(props.search){
+            const req = await fetch(`http://localhost:3000/api/${props.categoria}`);
+            const json = await req.json();
+            const object = json.reverse()
+            const results = object.filter(function(ele){return verificarSimilaridade(props.search,ele.produto_nome)>filter_sim}) 
+            setResultados(results)
+            console.log(results)
+        }
     }
 
     useEffect(()=>{
         setCategoriaNome(`${props.categoria}s`)
         setProdutos([])
         setSubProdutos([])
+        setResultados([])
         carregarProdutos()
         carregarSubProdutos()
+        carregarResultados()
+        console.log(props.search)
 
-    },[props.categoria,props.subcategoria])
+    },[props.categoria,props.subcategoria,props.search])
     
     function renderizarProdutos(){
-        if(props.subcategoria === undefined){
+        if(props.subcategoria === undefined && props.search === undefined){
             return (produtos.length) ? 
                 <div className={styles.produtos_sessao_itens}>{
                     produtos.map((produto, key)=>(
@@ -41,7 +98,8 @@ export default function Produtos(props){
                 </div> : 
                 <div className={styles.loading} >
                 <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif"/></div>
-        }else{
+        }else if(props.search === undefined){
+            console.log(props.search)
             return (subprodutos.length) ? 
                 <div className={styles.produtos_sessao_itens}>{
                     subprodutos.map((produto, key)=>(
@@ -49,6 +107,14 @@ export default function Produtos(props){
                 </div> : 
                 <div className={styles.loading} >
                 <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif"/></div>
+        }else{
+            return (resultados.length) ? 
+            <div className={styles.produtos_sessao_itens}>{
+                resultados.map((produto, key)=>(
+                <Produto key={key} item={produto}/>))}
+            </div> : 
+            <div className={styles.loading} >
+            <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif"/></div>
         }
     }
 

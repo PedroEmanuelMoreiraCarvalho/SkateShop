@@ -1,5 +1,4 @@
 import styles from "../styles/Categorias.module.css"
-import router from "next/router"
 import Link from "next/link"
 
 export default function Categorias(props){
@@ -42,7 +41,7 @@ export default function Categorias(props){
                 <div className={styles.menu_itens}>
                     <Link href="/categorias/roupa">
                         <a>
-                            <div className={styles.menu_categoria}>Roupas</div>
+                            <div className={styles.menu_categoria}>Sobre</div>
                         </a>
                     </Link>
                 </div>
