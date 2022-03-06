@@ -58,14 +58,6 @@
     width: 250px;
     height: inherit;
 }
-.header_client_bag{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 30px;
-    background-color: #fff;
-}
 .header_client_login{
     display: flex;
     align-items: center;

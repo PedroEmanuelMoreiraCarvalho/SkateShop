@@ -17,9 +17,8 @@ class Form extends Component{
             busca: e.target.value
         })
     }
-    submit = (e) =>{
-        console.log(this.state.busca)
-        e.preventDefault();
+    submit = (e) => {
+        e.preventDefault()
     }
 
     render(){

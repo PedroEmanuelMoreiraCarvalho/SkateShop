@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0 0 40px;
 }
 .produtos_categoria_nome{
     font-size: 35px;

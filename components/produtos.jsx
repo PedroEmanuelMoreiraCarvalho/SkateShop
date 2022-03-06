@@ -41,7 +41,6 @@ export default function Produtos(props){
     const [produtos, setProdutos] = useState([])
     const [subprodutos, setSubProdutos] = useState([])
     const [resultados, setResultados] = useState([])
-
     async function carregarProdutos(){
         const req = await fetch(`http://localhost:3000/api/${props.categoria}`);
         const json = await req.json();
@@ -65,7 +64,6 @@ export default function Produtos(props){
             const subprodutos = produtos_filtro.filter(function(ele){return ele.produto_categorias.includes(props.subcategoria)})
             const results = subprodutos.filter(function(ele){return verificarSimilaridade(props.search,ele.produto_nome)>filter_sim}) 
             setResultados(results)
-            console.log(results)
         }
         if(props.search){
             const req = await fetch(`http://localhost:3000/api/${props.categoria}`);
@@ -73,8 +71,14 @@ export default function Produtos(props){
             const object = json.reverse()
             const results = object.filter(function(ele){return verificarSimilaridade(props.search,ele.produto_nome)>filter_sim}) 
             setResultados(results)
-            console.log(results)
         }
+    }
+
+    function add(e){
+        props.add(e)
+    }
+    function rmv(e){
+        props.rmv(e)
     }
 
     useEffect(()=>{
@@ -85,7 +89,6 @@ export default function Produtos(props){
         carregarProdutos()
         carregarSubProdutos()
         carregarResultados()
-        console.log(props.search)
 
     },[props.categoria,props.subcategoria,props.search])
     
@@ -94,7 +97,7 @@ export default function Produtos(props){
             return (produtos.length) ? 
                 <div className={styles.produtos_sessao_itens}>{
                     produtos.map((produto, key)=>(
-                    <Produto key={key} item={produto}/>))}
+                    <Produto key={key} item={produto} add={add} rmv={rmv}/>))}
                 </div> : 
                 <div className={styles.loading} >
                 <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif"/></div>
@@ -103,7 +106,7 @@ export default function Produtos(props){
             return (subprodutos.length) ? 
                 <div className={styles.produtos_sessao_itens}>{
                     subprodutos.map((produto, key)=>(
-                    <Produto key={key} item={produto}/>))}
+                    <Produto key={key} item={produto} add={add} rmv={rmv} />))}
                 </div> : 
                 <div className={styles.loading} >
                 <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif"/></div>
@@ -111,7 +114,7 @@ export default function Produtos(props){
             return (resultados.length) ? 
             <div className={styles.produtos_sessao_itens}>{
                 resultados.map((produto, key)=>(
-                <Produto key={key} item={produto}/>))}
+                <Produto key={key} item={produto} add={add} rmv={rmv} />))}
             </div> : 
             <div className={styles.loading} >
             <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif"/></div>
