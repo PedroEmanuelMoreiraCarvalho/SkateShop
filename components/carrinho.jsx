@@ -44,7 +44,7 @@ function Carrinho(props){
             <div className={carrinhoStyle}>
                 <button className={styles.btn} onClick={(ev)=>{ev.preventDefault();alternar_carrinho()}}>Fechar Carrinho</button>
                 <div className={styles.carrinho_produtos}>
-                    <div className={styles.compra_info}>Carrinho ({carrinho ? carrinho.length : 0})</div>
+                    <div className={styles.compra_info}>Carrinho ({carrinho ? carrinho.length : 0}) R${calcular_valor_total()}</div>
                     {carrinho.length ? carrinho.map((produto)=>{
                         return(<div><CarrinhoProduto rmv={props.rmv} produto={produto}/></div>)}) : <div style={{display:"flex",justifyContent:"center",margin:"20px"}}>Sem Produtos</div>
                     }

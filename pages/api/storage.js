@@ -1,6 +1,7 @@
 import connect from "../../utils/database"
 
 export default async function handler(req, res){
+    console.log(req)
     const {db} = await connect()
     const produtos_num = await db.collection("estoque").count({data_type:"produto"})
 

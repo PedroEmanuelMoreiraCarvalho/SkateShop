@@ -34,7 +34,7 @@ class Home extends Component{
       <div className={styles.skateshop}>
         <Header carrinho={this.state.carrinho} add={this.add} rmv={this.rmv}/>
         <Categorias/>
-        <Produtos categoria={"storage"} subcategoria={undefined} search={undefined} add={this.add} rmv={this.rmv}/>
+        <Produtos categoria={"storage"} subcategoria={undefined} search={undefined} add={this.add} rmv={this.rmv} carrinho={this.state.carrinho}/>
         <Footer/>
       </div>
     )

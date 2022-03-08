@@ -12,6 +12,11 @@ class Produto extends Component{
         }
     }
 
+    estaNoCarrinho=()=>{
+        let verificacao = (this.props.carrinho.includes(this.produto)) ? true : false
+        return verificacao
+    }
+
     AdicionarAoCarrinho = (e) => {
         e.preventDefault()
         this.props.add(this.produto)
@@ -43,7 +48,7 @@ class Produto extends Component{
                 {this.produto && `R$ ${this.produto.produto_preco}`}
             </div>
             {
-                this.state.noCarrinho ? 
+                this.estaNoCarrinho() ? 
                 <form class={styles.adicionarAoCarrinho} onSubmit={this.RemoverDoCarrinho}>
                     <button type="submit">Remover do Carrinho</button>
                 </form> 
